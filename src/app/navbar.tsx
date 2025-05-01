@@ -114,7 +114,7 @@ export default function Navbar() {
                           />  
                         </svg>
                       </NavigationMenuTrigger>
-                      <NavigationMenuContent className="w-full">
+                      <NavigationMenuContent className="w-full"> {/* Conditionally render the below items based on auth state */}
                         <NavigationMenuLink asChild className="w-full">
                           <Link href="/login">
                             Your account
