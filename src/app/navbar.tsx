@@ -54,7 +54,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function Navbar() {
     return (
-        <NavigationMenu className="absolute text-2xl ">
+        <NavigationMenu className="absolute text-2xl bg-navbar">
             <NavigationMenuList className="w-screen justify-between ">
                 <NavigationMenuItem>
                     <p>CS2 Strat Roulette</p>
