@@ -120,3 +120,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+ul#navmenu{
+    width:100%;
+}
