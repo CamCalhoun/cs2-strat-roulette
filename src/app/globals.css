@@ -47,7 +47,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.16 0.0228 264.695);
   --navbar: oklch(0.35 0.0396 270.63);
   --navbar-accent: oklch(0.35 0.07 270.63);
   --foreground: oklch(0.129 0.042 264.695);
@@ -130,3 +130,4 @@
 ul#navmenu{
     width:100%;
 }
+
