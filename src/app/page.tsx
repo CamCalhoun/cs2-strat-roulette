@@ -1,7 +1,16 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/client";
 
-export default function Home() {
+export default async function Home() {
+
+  const supabase = createClient();
+  let { data: maps, error } = await supabase.from('map').select('*');
+        
+  console.log(JSON.stringify(maps, null, 2));
+  console.log(error)
+
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -52,6 +61,12 @@ export default function Home() {
           </a>
           <Button className="" variant="outline">Garp</Button>
         </div>
+        <h2>List of maps!!</h2>
+        <ul>
+          {maps && maps.map((m: {"id": number, "name": string}) => (
+            <div key={m.id}>{m.name}</div>
+          ))}
+        </ul>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
