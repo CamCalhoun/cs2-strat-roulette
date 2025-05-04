@@ -8,10 +8,11 @@ import {
     NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
+    NavigationMenuDropdownLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { Button } from "@/components/ui/button"
 
 export default async function Navbar() {
     const supabase = await createClient()
@@ -29,39 +30,47 @@ export default async function Navbar() {
                 </NavigationMenuItem>
                 <div className="flex items-center">
                     <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                            <Link href="/admin">
-                                Admin
-                            </Link>
+                        <NavigationMenuLink asChild>
+                            <Button variant={'link'} className="text-white">
+                                <Link href="/admin">
+                                    Admin
+                                </Link>
+                            </Button>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                            <Link href="/">
-                                Home
-                            </Link>
+                        <NavigationMenuLink asChild className={''}>
+                            <Button variant={'link'} className="text-white">
+                                <Link href="/">
+                                    Home
+                                </Link>
+                            </Button>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                            <Link href="/submitStrat">
-                                Submit Strat
-                            </Link>
+                        <NavigationMenuLink asChild>
+                            <Button variant={'link'} className="text-white">
+                                <Link href="/submitStrat">
+                                    Submit Strat
+                                </Link>
+                            </Button>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                            <Link href="/about">
-                                About
-                            </Link>
+                        <NavigationMenuLink asChild>
+                            <Button variant={'link'} className="text-white">
+                                <Link href="/about">
+                                    About
+                                </Link>
+                            </Button>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
-                    { data.user && 
-                        <NavigationMenuItem>
+                    { data.user?.user_metadata.username && 
+                        <NavigationMenuItem className="px-2 text-sm font-semibold">
                             <p>Hi {data.user.user_metadata?.username}!</p>
                         </NavigationMenuItem>
                     }
@@ -83,26 +92,26 @@ export default async function Navbar() {
                         </svg>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="w-full"> {/* Conditionally render the below items based on auth state */}
-                        <NavigationMenuLink asChild className="w-full">
+                        <NavigationMenuDropdownLink asChild className="w-full">
                           <Link href="/login">
                             Your account
                           </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild className="w-full">
+                        </NavigationMenuDropdownLink>
+                        <NavigationMenuDropdownLink asChild className="w-full">
                           <Link href="/signup" className="w-full">
                             Sign up
                           </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild className="w-full">
+                        </NavigationMenuDropdownLink>
+                        <NavigationMenuDropdownLink asChild className="w-full">
                           <Link href="/login">
                             Log in
                           </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild className="w-full">
+                        </NavigationMenuDropdownLink>
+                        <NavigationMenuDropdownLink asChild className="w-full">
                           <Link href="/login">
                             Log out
                           </Link>
-                        </NavigationMenuLink>
+                        </NavigationMenuDropdownLink>
                       </NavigationMenuContent>
                   </NavigationMenuItem>
                 </div>

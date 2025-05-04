@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
 import { cva } from "class-variance-authority"
-import { ChevronDownIcon } from "lucide-react"
+// import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -62,6 +62,10 @@ const navigationMenuTriggerStyle = cva(
     "group inline-flex h-9 w-max items-center justify-center rounded-md bg-navbar px-4 py-2 font-medium hover:bg-navbar-accent hover:text-accent-foreground focus:bg-navbar-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-navbar-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:navbar-accent data-[state=open]:bg-navbar-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
 )
 
+const navigationMenuDropdownStyle = cva(
+    "group inline-flex h-9 w-max items-center justify-center rounded-md bg-navbar px-4 py-2 font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+)
+
 function NavigationMenuTrigger({
     className,
     children,
@@ -70,7 +74,7 @@ function NavigationMenuTrigger({
     return (
         <NavigationMenuPrimitive.Trigger
             data-slot="navigation-menu-trigger"
-            className={cn(navigationMenuTriggerStyle(), "group", className)}
+            className={cn(navigationMenuDropdownStyle(), "group", className)}
             {...props}
         >
             {children}{" "}
@@ -129,7 +133,23 @@ function NavigationMenuLink({
         <NavigationMenuPrimitive.Link
             data-slot="navigation-menu-link"
             className={cn(
-                "data-[active=true]:focus:bg-navbar-accent data-[active=true]:hover:bg-navbar-accent data-[active=true]:bg-navbar-accent/50 data-[active=true]:text-accent-foreground hover:bg-navbar-accent hover:text-accent-foreground focus:bg-navbar-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
+                "focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
+                className
+            )}
+            {...props}
+            />
+        )
+    }
+    
+    function NavigationMenuDropdownLink({
+        className,
+        ...props
+    }: React.ComponentProps<typeof NavigationMenuPrimitive.Link>) {
+        return (
+            <NavigationMenuPrimitive.Link
+            data-slot="navigation-menu-link"
+            className={cn(
+                "data-[active=true]:focus:bg-navbar-accent data-[active=true]:hover:bg-navbar-accent data-[active=true]:bg-navbar-accent/50 data-[active=true]:text-white hover:bg-navbar-accent hover:text-white focus:bg-navbar-accent focus:text-white focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
                 className
             )}
             {...props}
@@ -162,6 +182,7 @@ export {
     NavigationMenuContent,
     NavigationMenuTrigger,
     NavigationMenuLink,
+    NavigationMenuDropdownLink,
     NavigationMenuIndicator,
     NavigationMenuViewport,
     navigationMenuTriggerStyle,
