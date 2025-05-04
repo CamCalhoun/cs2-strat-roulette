@@ -1,7 +1,6 @@
-"use client"
-
 import * as React from "react"
 import Link from "next/link"
+import { createClient } from "@/lib/server"
 
 import { cn } from "@/lib/utils"
 import {
@@ -14,7 +13,13 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-export default function Navbar() {
+export default async function Navbar() {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.auth.getUser()
+    if (error || !data?.user) {
+        console.log(error)
+    }
 
     return (
         <NavigationMenu className="text-md p-2 w-screen text-white bg-[var(--color-navbar)] shadow-md shadow-slate-400 fixed top-0">
@@ -22,7 +27,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                     <p className="text-2xl">CS2 Strat Roulette</p>
                 </NavigationMenuItem>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center">
                     <NavigationMenuItem>
                         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                             <Link href="/admin">
@@ -55,11 +60,11 @@ export default function Navbar() {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
-                    <div className="h-6 w-0.5 bg-slate-300 " />
-
-                    <NavigationMenuItem>
-                        <p>Hi Username!</p>
-                    </NavigationMenuItem>
+                    { data.user && 
+                        <NavigationMenuItem>
+                            <p>Hi {data.user.user_metadata?.username}!</p>
+                        </NavigationMenuItem>
+                    }
 
                     {/* AVATAR SIGN IN DROPDOWN THING */}
                     <NavigationMenuItem>
